@@ -1,0 +1,13 @@
+.container {
+    margin-top: 1.5%;
+    margin-bottom: 2%;
+}
+
+.table-container {
+    width: 70%;
+    margin: 0 auto;
+}
+
+th {
+    text-align: center;
+}

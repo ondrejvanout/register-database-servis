@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register master</title>
+
+    <link rel="stylesheet" href="stylesheet.css"/>
+
+    <!--Boostrap libraries-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+    <!-- Control center -->
+    <div class="container">
+        <div class="row mb-3">
+            <!-- The select box takes up 4 out of 12 columns -->
+            <div class="col-md-4">
+                <select id="api-operations" class="form-control">
+                    <!-- CREATE -->
+                    <option value="saveRegister">CREATE register</option>
+                    <option value="saveRegisters">CREATE registers</option>
+        
+                    <!-- READ -->
+                    <option value="getRegisters">GET all registers</option>
+                    <option value="getRegisterById">GET register by ID</option>
+                    <option value="getRegisterByLabel">GET register by label</option>
+                    <option value="getRegisterByAddress">GET register by address</option>
+        
+                    <!-- UPDATE -->
+                    <option value="updateRegister">UPDATE register</option>
+                    
+                    <!-- DELETE -->
+                    <option value="deleteRegister">DELETE register</option>
+                </select>
+            </div>
+    
+            <!-- The input field takes up another 4 out of 12 columns -->
+            <div class="col-md-4">
+                <input type="text" id="register_variable" class="form-control" placeholder="Register Variable">
+            </div>
+    
+            <!-- The button takes up another 4 out of 12 columns -->
+            <div class="col-md-4">
+                <button id="fetchButton" class="btn btn-success w-100">Get Data</button>
+            </div>
+        </div>
+    </div>
+       
+    <!-- Individual register container -->
+    <div class="container">
+        <form class="form-horizontal" role="form">
+    
+            <!-- Address Field -->
+            <div class="form-group row">
+                <label for="address-form" class="col-sm-2 control-label">Address:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="address-form" placeholder="Enter Address">
+                </div>
+            </div>
+    
+            <!-- Label Field -->
+            <div class="form-group row">
+                <label for="label-form" class="col-sm-2 control-label">Label:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="label-form" placeholder="Enter Label">
+                </div>
+            </div>
+    
+            <!-- Data Type Dropdown -->
+            <div class="form-group row">
+                <label for="data_type-form" class="col-sm-2 control-label">Data Type:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="data_type-form" placeholder="Enter Data type">
+                </div>
+            </div>
+    
+            <!-- Factor Field -->
+            <div class="form-group row">
+                <label for="factor-form" class="col-sm-2 control-label">Factor:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="factor-form" placeholder="Enter Factor">
+                </div>
+            </div>
+    
+            <!-- Unit Field -->
+            <div class="form-group row">
+                <label for="unit-form" class="col-sm-2 control-label">Unit:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="unit-form" placeholder="Enter Unit">
+                </div>
+            </div>
+
+            <!-- Description Field -->
+            <div class="form-group row">
+                <label for="description-form" class="col-sm-2 control-label">description</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="description-form" placeholder="Enter Description">
+                </div>
+            </div>
+    
+            <!-- Data Field -->
+            <div class="form-group row">
+                <label for="data-form" class="col-sm-2 control-label">Data:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="data-form" placeholder="Enter Data">
+                </div>
+            </div>
+    
+            <!-- Create register Button -->
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-4">
+                    <button type="submit" class="btn btn-success btn-lg btn-block" id="create-register-button">Submit</button>
+                </div>
+            </div>
+    
+        </form>
+    </div>
+
+
+
+
+    <!-- Table of fetched register data - initially empty -->
+    <div class="table-container">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="text-center">Address</th>
+                        <th class="text-center">Label</th>
+                        <th class="text-center">Data type</th>
+                        <th class="text-center">Factor</th>
+                        <th class="text-center">Unit</th>
+                        <th class="text-center">Data</th>
+                    </tr>
+                </thead>
+                <tbody id="register_output">
+                    <!-- Data rows will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+    
+
+    
+    
+
+    <script src="./javascript/index.js"></script>
+
+</body>
+</html>
