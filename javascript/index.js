@@ -19,6 +19,7 @@ const API_URL = {
     GET_BY_ADDRESS: (address) => `http://localhost:8081/api/v1/registers/address/${address}`
 };
 
+
 /*
     fetch data requests to database API 
     @return data in JSON format
