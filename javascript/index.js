@@ -1,3 +1,5 @@
+import { RegisterRecord } from "./register.js";
+
 const fetchButton = document.getElementById('fetchButton');
 const createRegButton = document.getElementById('create-register-button');
 const resultDiv = document.getElementById('result');
@@ -104,68 +106,82 @@ if (fetchButton) {
         const selectedOperation = document.getElementById("api-operations").value;
         console.log(selectedOperation);
 
-        let registerData = null;
+        let register = null;
+        let registerList = null;
 
         // call selected API operation and get data
         switch (selectedOperation) {
-            case "saveRegister":
+            case "saveRegister": {
                 console.log("saveRegister not defined");
                 break;
-            case "saveRegisters":
+            }
+            case "saveRegisters": {
                 console.log("saveRegisters not defined");
                 break;
-            case "getRegisters":
-                registerData = await fetchApiData(API_URL.GET_ALL);
+            }
+            case "getRegisters": {
+                const apiData = await fetchApiData(API_URL.GET_ALL);
+                // JSON array so we have to convert to individual RegisterRecord objects
+                registerList = apiData.map(register => RegisterRecord.fromJson(register));
 
                 break;
-            case "getRegisterById":
+            }
+            case "getRegisterById": {
                 let id = userInput.value;
                 if (isNaN(id)) {
                     console.error("Given ID is not a number");
                 }
                 
                 console.log(API_URL.GET_BY_ID(id));
-                registerData = await fetchApiData(API_URL.GET_BY_ID(id));
+                const apiData = await fetchApiData(API_URL.GET_BY_ID(id));
+                register = RegisterRecord.fromJson(apiData);
 
                 break;
-            case "getRegisterByLabel":
+            }
+            case "getRegisterByLabel": {
                 let label = userInput.value
                 if (!isNaN(label)) {
                     console.error("Given LABEL is not a text");
                 }
 
                 console.log(API_URL.GET_BY_LABEL(label));
-                registerData = await fetchApiData(API_URL.GET_BY_LABEL(label));
+                const apiData = await fetchApiData(API_URL.GET_BY_LABEL(label));
+                register = RegisterRecord.fromJson(apiData)
 
                 break;
-            case "getRegisterByAddress":
+            }  
+            case "getRegisterByAddress": {
                 let address = userInput.value;
                 if (isNaN(address)) {
                     console.error("Given ADDRESS is not a number");
                 }
 
                 console.log(API_URL.GET_BY_ADDRESS(address));
-                registerData = await fetchApiData(API_URL.GET_BY_ADDRESS(address));
+                const apiData = await fetchApiData(API_URL.GET_BY_ADDRESS(address));
+                register = RegisterRecord.fromJson(apiData);
 
                 break;
-            case "updateRegister":
+            }
+            case "updateRegister": {
                 console.log("updateRegister not defined");
 
                 break;
-            case "deleteRegister":
+            }
+            case "deleteRegister": {
                 console.log("deleteRegister not defined");
 
                 break;
+            }
             default:
                 console.error("No option selected");
         }
 
-        // determine if registerData obtained from API is single object or array -> populate the table accordingly
-        if (Array.isArray(registerData)) { // list of registers
-            addRegistersToTable(registerData);
-        } else if (typeof registerData === 'object' && registerData != null) { // single register
-            addRegisterToTable(registerData);
-            addRegisterToForm(registerData);
+        // determine if we have list or single RegisterRecord object
+        if (registerList != null) { // list of registers
+            addRegistersToTable(registerList);
+        } else if (register != null) { // single register
+            addRegisterToTable(register);
+            addRegisterToForm(register);
         } else {
             console.error("SOMETHING WENT TO SHIT WHEN FETCHING DATA");
         }
