@@ -23,7 +23,7 @@ const API_URL = {
 
 
 /*
-    fetch data requests to database API 
+    fetch data from database API 
     @return data in JSON format
 */
 export async function fetchApiData(url) {
@@ -32,13 +32,42 @@ export async function fetchApiData(url) {
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
-
+        console.log(`Response from fetch: ${response}`);
         let dataJson = await response.json() // wait for JSON conversion to complete
         console.log(`Fetched data ${dataJson}`);
 
+        // return response json data
         return dataJson;
     } catch (error) {
-        console.error(error.message);
+        console.log(error.message);
+    }
+}
+
+/*
+    post data to database using database API
+*/
+async function postApiData(url, register) {
+    console.log("POSTing data");
+    try {
+        let response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' // Inform the server that the request body is JSON
+            },
+            body: register.toJson()
+        });
+        
+        // check response -> throw error if not OK
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`); 
+        }
+        
+        const dataJson = await response.json(); 
+        // return response data
+        return dataJson;
+    }
+    catch (error) {
+        console.log(error.message);
     }
 }
 
@@ -99,6 +128,23 @@ function addRegisterToForm(register) {
     
 }
 
+/*
+    Reset all form fields
+    using after creating register
+*/
+function clearRegisterForm() {
+    addressForm.value = "";
+    labelForm.value = "";
+    dataTypeForm.value = "";
+    factorForm.value = "";
+    unitForm.value = "";
+    descriptionForm.value = "";
+    dataForm.value = "";
+}
+
+/*
+    Fetch button
+*/  
 if (fetchButton) {
     // Event listener needs to be async because we call async fetchAllRegisters()
     fetchButton.addEventListener('click', async () => {
@@ -146,6 +192,7 @@ if (fetchButton) {
 
                 console.log(API_URL.GET_BY_LABEL(label));
                 const apiData = await fetchApiData(API_URL.GET_BY_LABEL(label));
+                console.log(apiData);
                 register = RegisterRecord.fromJson(apiData)
 
                 break;
@@ -158,6 +205,7 @@ if (fetchButton) {
 
                 console.log(API_URL.GET_BY_ADDRESS(address));
                 const apiData = await fetchApiData(API_URL.GET_BY_ADDRESS(address));
+                console.log(apiData);
                 register = RegisterRecord.fromJson(apiData);
 
                 break;
@@ -192,15 +240,35 @@ if (fetchButton) {
     console.error('Fetch button not found');
 }
 
+/*
+    SUBMIT button
+    -> should CREATE new record in database
+    TODO: put together all buttons
+*/
 if (createRegButton) {
-    createRegButton.addEventListener('click', () => {
+    createRegButton.addEventListener('click', async () => {
+        console.log("clicked");
         // Need to check that all required attributes exists
         if (addressForm.value.trim() === "" || labelForm.value.trim === "") {
-            alert("Register address or label are empty!");
+            alert("Register address or label can't be empty!");
             return;
         }
 
+        // create RegisterRecord instance with values from individual register container
+        const record = new RegisterRecord(
+                            addressForm.value.trim(),
+                            labelForm.value.trim(),
+                            dataTypeForm.value.trim(),
+                            factorForm.value.trim(),
+                            unitForm.value.trim(),
+                            descriptionForm.value.trim(),
+                            dataForm.value.trim()
+                        );
         
+        const response = await postApiData(API_URL.GET_ALL, record);
+        console.log(`POST register: ${response}`);
+        //clearRegisterForm();
 
+        // TODO: Hibernate: insert into sofar (address,data,data_type,description,factor,label,unit) values (?,?,?,?,?,?,?)
     });
 }
