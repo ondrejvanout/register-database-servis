@@ -6,3 +6,6 @@ old_version/
 
 # Ignore package-lock.json
 package-lock.json
+
+# WebStorm files
+.idea
