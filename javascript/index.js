@@ -5,12 +5,12 @@ const createRegButton = document.getElementById('create-register-button');
 const resultDiv = document.getElementById('result');
 const userInput = document.getElementById('register_variable');
 
-// REGISTERS FORMS
+// Register form
 const addressForm = document.getElementById('address-form');
 const labelForm = document.getElementById('label-form');
-const dataTypeForm = document.getElementById('data_type-form');
+const dataTypeSelect = document.getElementById('data_type-select');
 const factorForm = document.getElementById('factor-form');
-const unitForm = document.getElementById('unit-form');
+const unitSelect = document.getElementById('unit-select');
 const descriptionForm = document.getElementById('description-form');
 const dataForm = document.getElementById('data-form');
 
@@ -119,9 +119,9 @@ function addRegisterToTable(register) {
 function addRegisterToForm(register) {
     addressForm.value = register.address;
     labelForm.value = register.label;
-    dataTypeForm.value = register.dataType;
+    dataTypeSelect.value = register.dataType;
     factorForm.value = register.factor;
-    unitForm.value = register.unit;
+    unitSelect.value = register.unit;
     descriptionForm.value = register.description;
     dataForm.value = register.data;
     
@@ -253,16 +253,15 @@ if (createRegButton) {
             return;
         }
 
+        const address = addressForm.value.trim();
+        const label = labelForm.value.trim();
+        const dataType = dataTypeSelect.value;
+        const factor = factorForm.value.trim();
+        const unit = unitSelect.value;
+        const description = descriptionForm.value.trim();
+
         // create RegisterRecord instance with values from individual register container
-        const record = new RegisterRecord(
-                            addressForm.value.trim(),
-                            labelForm.value.trim(),
-                            dataTypeForm.value.trim(),
-                            factorForm.value.trim(),
-                            unitForm.value.trim(),
-                            descriptionForm.value.trim(),
-                            dataForm.value.trim()
-                        );
+        const record = new RegisterRecord(address, label, dataType, factor, unit, description);
         
         const response = await postApiData(API_URL.GET_ALL, record);
         console.log(`POST register: ${response}`);
