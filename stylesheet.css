@@ -11,3 +11,83 @@
 th {
     text-align: center;
 }
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap when needed */
+    gap: 0;          /* Ensure no gaps between items */
+    margin: 0;
+    padding: 0;
+}
+
+form .form-group {
+    display: flex;
+    flex-direction: column; /* Arrange label and input vertically */
+    align-items: flex-start; /* Align items to the left */
+    margin: 0;
+    padding: 0;
+}
+
+form .form-control, .form-select {
+    width: 100%; /* Stretch to fill parent column */
+    height: 38px; /* Standardized height */
+    margin: 0; /* Remove extra margins */
+    padding: 5px;
+    box-sizing: border-box; /* Ensures padding doesn’t affect width */
+    border-radius: 0; /* Removes rounded corners */
+}
+
+
+
+.form-control:focus {
+    outline: none;                /* Removes focus outline */
+    border-color: #888;           /* Slightly darker border on focus */
+}
+
+
+
+.form-group label {
+    display: block;            /* Ensures labels take up full width */
+    width: 100%;               /* Stretches label to match parent column */
+    margin: 0;
+    background-color: #000000; /* Background color for the label */
+    padding: 10px;             /* Adds padding for spacing inside the label */
+    color: rgba(18, 18, 19, 0.68);               /* Text color */
+    text-align: center;
+    line-height: 1.5;          /* Aligns text vertically, tweak as needed */
+    font-size: 1rem;           /* Optional: Adjusts text size */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* LABEL COLOURS */
+label[for="address-form"] {
+    background-color: #c8deb6;
+}
+
+label[for="label-form"] {
+    background-color: #b0ddf0;
+}
+
+label[for="data_type-select"] {
+    background-color: #d3d2e7;
+}
+
+label[for="factor-form"] {
+    background-color: #dedbc5;
+}
+
+label[for="unit-select"] {
+    background-color: #ece1c2;
+}
+
+label[for="description-form"] {
+    background-color: #e2edd8;
+}
+
+label[for="data-form"] {
+    background-color: #e7e6f2;
+}
+
+.form-group input {
+    width: 150px; /* Set a consistent width for inputs */
+}

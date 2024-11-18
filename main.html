@@ -57,75 +57,114 @@
     <!-- Individual register container -->
     <div class="container">
         <form class="form-horizontal" role="form">
-    
-            <!-- Address Field -->
-            <div class="form-group row">
-                <label for="address-form" class="col-sm-2 control-label">Address:</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" id="address-form" placeholder="Enter Address">
+            <div class="form-container row g-0">
+                <!-- Address Field -->
+                <div class="form-group col-sm-2">
+                    <label for="address-form" class="w-100">Address</label>
+                    <input type="text" class="form-control w-100" id="address-form" placeholder="Enter Address">
                 </div>
-            </div>
-    
-            <!-- Label Field -->
-            <div class="form-group row">
-                <label for="label-form" class="col-sm-2 control-label">Label:</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" id="label-form" placeholder="Enter Label">
+                <!-- Label Field -->
+                <div class="form-group col-sm-4">
+                    <label for="label-form" class="w-100">Label</label>
+                    <input type="text" class="form-control w-100" id="label-form" placeholder="Enter Label">
                 </div>
-            </div>
-    
-            <!-- Data Type Dropdown -->
-            <div class="form-group row">
-                <label for="data_type-form" class="col-sm-2 control-label">Data Type:</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" id="data_type-form" placeholder="Enter Data type">
+                <!-- Data Type Field -->
+                <div class="form-group col-sm-2">
+                    <label for="data_type-select" class="w-100">Data Type</label>
+                    <select class="form-control w-100" id="data_type-select">
+                        <!-- Unsigned integers -->
+                        <option value="unsigned-int-8">U8</option>
+                        <option value="unsigned-int-16">U16</option>
+                        <option value="unsigned-int-32">U32</option>
+                        <option value="unsigned-int-64">U64</option>
+                        <!-- Signed integers -->
+                        <option value="signed-int-8">I8</option>
+                        <option value="signed-int-16">I16</option>
+                        <option value="signed-int-32">I32</option>
+                        <option value="signed-int-64">I64</option>
+                        <!-- Others -->
+                        <option value="bin-encoding-16">BCD16</option>
+                        <option value="ascii">ASCII</option>
+                        <option value="empty">EMPTY</option>
+                    </select>
                 </div>
-            </div>
-    
-            <!-- Factor Field -->
-            <div class="form-group row">
-                <label for="factor-form" class="col-sm-2 control-label">Factor:</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" id="factor-form" placeholder="Enter Factor">
+                <!-- Factor Field -->
+                <div class="form-group col-sm-2">
+                    <label for="factor-form" class="w-100">Factor</label>
+                    <input type="text" class="form-control w-100" id="factor-form" placeholder="Enter Factor">
                 </div>
-            </div>
-    
-            <!-- Unit Field -->
-            <div class="form-group row">
-                <label for="unit-form" class="col-sm-2 control-label">Unit:</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" id="unit-form" placeholder="Enter Unit">
+                <!-- Unit Field -->
+                <div class="form-group col-sm-2">
+                    <label for="unit-select" class="w-100">Unit</label>
+                    <select class="form-control w-100" id="unit-select">
+                        <!-- Physical -->
+                        <option value="watt">W</option>
+                        <option value="kilo-watt">kW</option>
+                        <option value="kilo-ohm">kΩ</option>
+                        <option value="hertz">Hz</option>
+                        <option value="volt">V</option>
+                        <option value="mili-volt">mV</option>
+                        <option value="amper">A</option>
+                        <option value="mili-amper">mA</option>
+                        <option value="kilovoltamper">kVA</option>
+                        <option value="kilo-Watt-hour">kWh</option>
+
+
+                        <!-- Time -->
+                        <option value="hour">hour</option>
+                        <option value="minute">minute</option>
+                        <option value="seconds">seconds</option>
+
+                        <!-- Others: -->
+                        <option value="EMPTY">EMPTY</option>
+                        <option value=temperature>℃</option>
+                        <option value="percentage">%</option>
+                        <option value="cycle">cycle</option>
+
+
+                        <option value="p.u.">p.u.</option>
+
+
+
+                        <option value="Second">Second</option>
+                        <option value="%Pn/min">%Pn/min</option>
+                        <option value="ms">ms</option>
+                        <option value="%Pn/Hz">%Pn/Hz</option>
+                        <option value="%Pn">%Pn</option>
+                        <option value="%Qmax">%Qmax</option>
+                        <option value="mA/kVA">mA/kVA</option>
+                        <option value="Year">Year</option>
+                        <option value="Month">Month</option>
+                        <option value="date">date</option>
+                        <option value="Ah">Ah</option>
+                        <option value="mV/Cell">mV/Cell</option>
+                        <option value="kVar">kVar</option>
+                        <option value="Hour Minute">Hour Minute</option>
+                        <option value="Month Date">Month Date</option>
+                        <option value="times">times</option>
+                    </select>
+
                 </div>
             </div>
 
-            <!-- Description Field -->
-            <div class="form-group row">
-                <label for="description-form" class="col-sm-2 control-label">description</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="description-form" placeholder="Enter Description">
+            <div class="form-container row g-0">
+                <!-- Description Field -->
+                <div class="form-group col-sm-10">
+                    <label for="description-form" class="w-100">Description</label>
+                    <input type="text" class="form-control w-100" id="description-form" placeholder="Enter Description">
+                </div>
+                <!-- Data Field -->
+                <div class="form-group col-sm-2">
+                    <label for="data-form" class="w-100">Data</label>
+                    <input type="text" class="form-control w-100" id="data-form" placeholder="Enter Data">
                 </div>
             </div>
-    
-            <!-- Data Field -->
-            <div class="form-group row">
-                <label for="data-form" class="col-sm-2 control-label">Data:</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" id="data-form" placeholder="Enter Data">
-                </div>
+            <!-- Submit Button -->
+            <div class="form-group" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-success btn-lg">Submit</button>
             </div>
-    
-            <!-- Create register Button -->
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-4">
-                    <button type="button" class="btn btn-success btn-lg btn-block" id="create-register-button">Submit</button>
-                </div>
-            </div>
-    
         </form>
     </div>
-
-
-
 
     <!-- Table of fetched register data - initially empty -->
     <div class="table-container">
