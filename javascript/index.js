@@ -1,4 +1,4 @@
-import { RegisterRecord } from "./register.js";
+import {RegisterRecord} from "./register.js";
 
 const fetchButton = document.getElementById('fetchButton');
 const createRegButton = document.getElementById('create-register-button');
@@ -61,10 +61,9 @@ async function postApiData(url, register) {
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`); 
         }
-        
-        const dataJson = await response.json(); 
+
         // return response data
-        return dataJson;
+        return await response.json();
     }
     catch (error) {
         console.log(error.message);
@@ -269,6 +268,5 @@ if (createRegButton) {
         console.log(`POST register: ${response}`);
         //clearRegisterForm();
 
-        // TODO: Hibernate: insert into sofar (address,data,data_type,description,factor,label,unit) values (?,?,?,?,?,?,?)
     });
 }
