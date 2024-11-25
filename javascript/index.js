@@ -17,10 +17,10 @@ const descriptionForm = document.getElementById('description-form');
 const dataForm = document.getElementById('data-form');
 
 const API_URL = {
-    GET_ALL: "http://localhost:8081/api/v1/registers",
-    GET_BY_ID: (id) => `http://localhost:8081/api/v1/registers/${id}`,
-    GET_BY_LABEL: (label) => `http://localhost:8081/api/v1/registers/label/${label}`,
-    GET_BY_ADDRESS: (address) => `http://localhost:8081/api/v1/registers/address/${address}`
+    ALL: "http://localhost:8081/api/v1/registers",
+    BY_ID: (id) => `http://localhost:8081/api/v1/registers/${id}`,
+    BY_LABEL: (label) => `http://localhost:8081/api/v1/registers/label/${label}`,
+    BY_ADDRESS: (address) => `http://localhost:8081/api/v1/registers/address/${address}`
 };
 
 
@@ -167,7 +167,7 @@ if (fetchButton) {
                 break;
             }
             case "getRegisters": {
-                const apiData = await fetchApiData(API_URL.GET_ALL);
+                const apiData = await fetchApiData(API_URL.ALL);
                 // JSON array so we have to convert to individual RegisterRecord objects
                 registerList = apiData.map(register => RegisterRecord.fromJson(register));
 
@@ -179,8 +179,8 @@ if (fetchButton) {
                     console.error("Given ID is not a number");
                 }
                 
-                console.log(API_URL.GET_BY_ID(id));
-                const apiData = await fetchApiData(API_URL.GET_BY_ID(id));
+                console.log(API_URL.BY_ID(id));
+                const apiData = await fetchApiData(API_URL.BY_ID(id));
                 register = RegisterRecord.fromJson(apiData);
 
                 break;
@@ -191,8 +191,8 @@ if (fetchButton) {
                     console.error("Given LABEL is not a text");
                 }
 
-                console.log(API_URL.GET_BY_LABEL(label));
-                const apiData = await fetchApiData(API_URL.GET_BY_LABEL(label));
+                console.log(API_URL.BY_LABEL(label));
+                const apiData = await fetchApiData(API_URL.BY_LABEL(label));
                 console.log(apiData);
                 register = RegisterRecord.fromJson(apiData)
 
@@ -204,8 +204,8 @@ if (fetchButton) {
                     console.error("Given ADDRESS is not a number");
                 }
 
-                console.log(API_URL.GET_BY_ADDRESS(address));
-                const apiData = await fetchApiData(API_URL.GET_BY_ADDRESS(address));
+                console.log(API_URL.BY_ADDRESS(address));
+                const apiData = await fetchApiData(API_URL.BY_ADDRESS(address));
                 console.log(apiData);
                 register = RegisterRecord.fromJson(apiData);
 
@@ -265,7 +265,7 @@ if (createRegButton) {
         // create RegisterRecord instance with values from individual register container
         const record = new RegisterRecord(address, label, dataType, factor, unit, description);
         
-        const response = await postApiData(API_URL.GET_ALL, record);
+        const response = await postApiData(API_URL.ALL, record);
         console.log(`POST register: ${response}`);
         //clearRegisterForm();
 
