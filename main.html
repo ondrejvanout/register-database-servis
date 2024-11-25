@@ -7,6 +7,9 @@
 
     <link rel="stylesheet" href="stylesheet.css"/>
 
+    <!-- Font awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
     <!-- Add jQuery (this must come before Bootstrap's JS) -->
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <!--Boostrap libraries-->
@@ -159,9 +162,10 @@
                     <input type="text" class="form-control w-100" id="data-form" placeholder="Enter Data">
                 </div>
             </div>
-            <!-- Submit Button -->
-            <div class="form-group" style="margin-top: 20px;">
-                <button id="create-register-button" type="button" class="btn btn-success btn-lg">Submit</button>
+            <!-- Submit and Delete Button -->
+            <div class="buttons-group" style="margin-top: 30px; display: flex; gap: 10px;">
+                <button id="create-register-button" type="button" class="btn btn-success btn-lg"><i class="fa-solid fa-upload"></i></button>
+                <button id="delete-register-button" type="button" class="btn btn-danger btn-lg"><i class="fas fa-trash"></i></button>
             </div>
         </form>
     </div>
