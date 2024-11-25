@@ -1,9 +1,11 @@
 import {RegisterRecord} from "./register.js";
 
+// Buttons
 const fetchButton = document.getElementById('fetchButton');
 const createRegButton = document.getElementById('create-register-button');
 const resultDiv = document.getElementById('result');
 const userInput = document.getElementById('register_variable');
+const deleteRegButton = document.getElementById('delete-register-button');
 
 // Register form
 const addressForm = document.getElementById('address-form');
@@ -268,4 +270,13 @@ if (createRegButton) {
         //clearRegisterForm();
 
     });
+
+/*
+    DELETE button
+    -> deletes selected register that is currently in the register container
+ */
+if (deleteRegButton) {
+
+}
+
 }
