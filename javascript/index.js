@@ -248,7 +248,7 @@ if (createRegButton) {
     createRegButton.addEventListener('click', async () => {
         console.log("clicked");
         // Need to check that all required attributes exists
-        if (addressForm.value.trim() === "" || labelForm.value.trim === "") {
+        if (addressForm.value.trim() === "" || labelForm.value.trim() === "") {
             alert("Register address or label can't be empty!");
             return;
         }
