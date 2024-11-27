@@ -161,9 +161,9 @@ function addRegisterToForm(register) {
 function clearRegisterForm() {
     addressForm.value = "";
     labelForm.value = "";
-    dataTypeForm.value = "";
+    dataTypeSelect.value = "";
     factorForm.value = "";
-    unitForm.value = "";
+    unitSelect.value = "";
     descriptionForm.value = "";
     dataForm.value = "";
 }
@@ -292,16 +292,32 @@ if (createRegButton) {
         
         const response = await postApiData(API_URL.ALL, record);
         console.log(`POST register: ${response}`);
-        //clearRegisterForm();
+        clearRegisterForm();
 
     });
 
 /*
     DELETE button
     -> deletes selected register that is currently in the register container
+
+    to delete a register only address is needed
+    TODO: maybe think of better way
  */
 if (deleteRegButton) {
+    deleteRegButton.addEventListener('click', async () => {
+        // check if there is a register in Individual reg container (is there address value)
+        if (!addressForm.value) {
+            alert("Need address to delete register.");
+            return;
+        }
 
+        const address = addressForm.value.trim();
+        console.log(address);
+
+        const response = await deleteApiData(API_URL.BY_ADDRESS(address), address);
+        console.log(`DELETE register: ${response}`);
+        clearRegisterForm();
+    });
 }
 
 }
