@@ -49,6 +49,28 @@ async function postApiData(url, register) {
     }
 }
 
+async function deleteApiData(url, address) {
+    console.log("DELETing data");
+    try {
+        let response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json' // Inform the server that the request body is JSON
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+
+        console.log("DELETED");
+
+        return response;
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 /*
     GET register by ID
 
@@ -71,13 +93,29 @@ for (let i = 0; i < 10; i++) {
 /*
     POST register
 */
-const postRegister = new RegisterRecord("38003", "bro_tf", "U16", "1", "V", "Kamo uz funguj ty debile", "420");
-console.log(`OBJECT:\n${postRegister}\n`);
+console.log("POST");
+const deleteRegister = new RegisterRecord("38010", "bro_tf", "U16", "1", "V", "Kamo uz funguj ty debile", "420");
+/*
+console.log(`OBJECT:\n${deleteRegister}\n`);
+console.log(`JSON:\n${deleteRegister.toJson()}\n`);
 
-console.log(`JSON:\n${postRegister.toJson()}\n`);
+const postResponse = await postApiData('http://localhost:8081/api/v1/registers', deleteRegister);
 
+// fetch deleteRegister
+console.log("FETCH");
+const fetchResponse = await fetchApiData(`http://localhost:8081/api/v1/registers/address/${deleteRegister.address}`);
+console.log(fetchResponse);*/
+
+
+console.log("DELETE");
+const resultDelete = await deleteApiData(`http://localhost:8081/api/v1/registers/address/${deleteRegister.address}`);
+console.log(resultDelete);
+
+/*
 const resultPost = await postApiData("http://localhost:8081/api/v1/registers", postRegister);
 console.log(resultPost);
 
 const checkPost = await fetchApiData(`http://localhost:8081/api/v1/registers/address/${postRegister.address}`);
 console.log(`From DB: ${checkPost}`);
+
+ */

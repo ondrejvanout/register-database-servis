@@ -73,6 +73,31 @@ async function postApiData(url, register) {
 }
 
 /*
+    Delete data from database using database API
+ */
+async function deleteApiData(url, address) {
+    console.log("DELETing data");
+    try {
+        let response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json' // Inform the server that the request body is JSON
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+
+        console.log("DELETED");
+
+        return response;
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+/*
     display list of registers in table
 */
 function addRegistersToTable(registers) {
