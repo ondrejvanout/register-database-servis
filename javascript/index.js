@@ -24,7 +24,8 @@ const API_URL = {
     ALL: "http://localhost:8081/api/v1/registers",
     BY_ID: (id) => `http://localhost:8081/api/v1/registers/${id}`,
     BY_LABEL: (label) => `http://localhost:8081/api/v1/registers/label/${label}`,
-    BY_ADDRESS: (address) => `http://localhost:8081/api/v1/registers/address/${address}`
+    BY_ADDRESS: (address) => `http://localhost:8081/api/v1/registers/address/${address}`,
+    BY_DATA_TYPE: (dataType) => `http://localhost:8081/api/v1/registers/data-type/${dataType}`
 };
 
 
@@ -255,9 +256,9 @@ if (fetchButton) {
         }
 
         // determine if we have list or single RegisterRecord object
-        if (registerList != null) { // list of registers
+        if (registerList) { // list of registers
             addRegistersToTable(registerList);
-        } else if (register != null) { // single register
+        } else if (register) { // single register
             addRegisterToTable(register);
             addRegisterToForm(register);
         } else {
@@ -340,6 +341,7 @@ if (deleteRegButton) {
 if (searchButton) {
     searchButton.addEventListener('click', async () => {
         let register = null;
+        let registerList = null;
 
         // check what we search for
         if (addressForm.value) { // address
@@ -354,12 +356,29 @@ if (searchButton) {
             const apiData = await fetchApiData(API_URL.BY_LABEL(label));
             register = RegisterRecord.fromJson(apiData)
         }
+        else if (dataTypeSelect.value !== '-') { // data-type select has been changed
+            const dataType = dataTypeSelect.value;
 
-        if (!register) {
+            const apiData = await fetchApiData(API_URL.BY_DATA_TYPE(dataType));
+            registerList = apiData.map(register => RegisterRecord.fromJson(register));
+        }
+
+        if (!register || !registerList) {
             console.error("SEARCH went wrong :(");
         }
 
-        addRegisterToForm(register);
+        // determine if we have list or single RegisterRecord object
+        if (registerList) { // list of registers
+            addRegistersToTable(registerList);
+        } else if (register) { // single register
+            addRegisterToTable(register);
+            addRegisterToForm(register);
+        } else {
+            console.error("SOMETHING WENT TO SHIT WHEN FETCHING DATA");
+        }
+
+
+
     });
 
 
