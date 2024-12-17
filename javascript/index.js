@@ -6,6 +6,7 @@ const createRegButton = document.getElementById('create-register-button');
 const resultDiv = document.getElementById('result');
 const userInput = document.getElementById('register_variable');
 const deleteRegButton = document.getElementById('delete-register-button');
+const searchButton = document.getElementById('search-button');
 
 // Register form
 const addressForm = document.getElementById('address-form');
@@ -15,6 +16,9 @@ const factorForm = document.getElementById('factor-form');
 const unitSelect = document.getElementById('unit-select');
 const descriptionForm = document.getElementById('description-form');
 const dataForm = document.getElementById('data-form');
+
+// register form array (for searching)
+const searchFormArray = [addressForm, labelForm, dataTypeSelect, factorForm, unitSelect];
 
 const API_URL = {
     ALL: "http://localhost:8081/api/v1/registers",
@@ -295,6 +299,7 @@ if (createRegButton) {
         clearRegisterForm();
 
     });
+}
 
 /*
     DELETE button
@@ -320,4 +325,44 @@ if (deleteRegButton) {
     });
 }
 
+/*
+    SEARCH button
+    -> search by all attributes of register record
+
+    - searchByAddress [x] -> individual
+    - searchByLabel [x] -> individual
+    - searchByDataType [] -> array
+    - searchByFactor [] -> array
+    - searchByUnit [] -> array
+    
+    // TODO: only those which return object
+ */
+if (searchButton) {
+    searchButton.addEventListener('click', async () => {
+        let register = null;
+
+        // check what we search for
+        if (addressForm.value) { // address
+            const address = addressForm.value.trim();
+
+            const apiData = await fetchApiData(API_URL.BY_ADDRESS(address));
+            register = RegisterRecord.fromJson(apiData);
+        }
+        else if (labelForm.value) {
+            const label = labelForm.value
+
+            const apiData = await fetchApiData(API_URL.BY_LABEL(label));
+            register = RegisterRecord.fromJson(apiData)
+        }
+
+        if (!register) {
+            console.error("SEARCH went wrong :(");
+        }
+
+        addRegisterToForm(register);
+    });
+
+
+
 }
+
