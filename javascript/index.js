@@ -26,7 +26,8 @@ const API_URL = {
     BY_ID: (id) => `http://localhost:8081/api/v1/registers/${id}`,
     BY_LABEL: (label) => `http://localhost:8081/api/v1/registers/label/${label}`,
     BY_ADDRESS: (address) => `http://localhost:8081/api/v1/registers/address/${address}`,
-    BY_DATA_TYPE: (dataType) => `http://localhost:8081/api/v1/registers/data-type/${dataType}`
+    BY_DATA_TYPE: (dataType) => `http://localhost:8081/api/v1/registers/data-type/${dataType}`,
+    BY_FACTOR: (factor) => `http://localhost:8081/api/v1/registers/factor/${factor}`
 };
 
 
@@ -341,8 +342,8 @@ clearButton.addEventListener('click', () => {
 
     - searchByAddress [x] -> individual
     - searchByLabel [x] -> individual
-    - searchByDataType [] -> array
-    - searchByFactor [] -> array
+    - searchByDataType [x] -> array
+    - searchByFactor [x] -> array
     - searchByUnit [] -> array
     
     // TODO: only those which return object
@@ -353,22 +354,28 @@ if (searchButton) {
         let registerList = null;
 
         // check what we search for
-        if (addressForm.value) { // address
+        if (addressForm.value) { // ADDRESS
             const address = addressForm.value.trim();
 
             const apiData = await fetchApiData(API_URL.BY_ADDRESS(address));
             register = RegisterRecord.fromJson(apiData);
         }
-        else if (labelForm.value) {
+        else if (labelForm.value) { // LABEL
             const label = labelForm.value
 
             const apiData = await fetchApiData(API_URL.BY_LABEL(label));
             register = RegisterRecord.fromJson(apiData)
         }
-        else if (dataTypeSelect.value !== '-') { // data-type select has been changed
+        else if (dataTypeSelect.value !== '-') { // DATA TYPE -> data-type select has been changed if it is not '-'
             const dataType = dataTypeSelect.value;
 
             const apiData = await fetchApiData(API_URL.BY_DATA_TYPE(dataType));
+            registerList = apiData.map(register => RegisterRecord.fromJson(register));
+        }
+        else if (factorForm.value) { // FACTOR
+            const factor = factorForm.value;
+
+            const apiData = await fetchApiData(API_URL.BY_FACTOR(factor));
             registerList = apiData.map(register => RegisterRecord.fromJson(register));
         }
 
