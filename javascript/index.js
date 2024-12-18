@@ -7,6 +7,7 @@ const resultDiv = document.getElementById('result');
 const userInput = document.getElementById('register_variable');
 const deleteRegButton = document.getElementById('delete-register-button');
 const searchButton = document.getElementById('search-button');
+const clearButton = document.getElementById('clear-register-container');
 
 // Register form
 const addressForm = document.getElementById('address-form');
@@ -166,9 +167,9 @@ function addRegisterToForm(register) {
 function clearRegisterForm() {
     addressForm.value = "";
     labelForm.value = "";
-    dataTypeSelect.value = "";
+    dataTypeSelect.value = "-";
     factorForm.value = "";
-    unitSelect.value = "";
+    unitSelect.value = "-";
     descriptionForm.value = "";
     dataForm.value = "";
 }
@@ -325,6 +326,14 @@ if (deleteRegButton) {
         clearRegisterForm();
     });
 }
+
+/*
+    CLEAR button
+    -> clears register form
+ */
+clearButton.addEventListener('click', () => {
+    clearRegisterForm();
+});
 
 /*
     SEARCH button

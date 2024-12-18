@@ -102,6 +102,9 @@
                 <div class="form-group col-sm-2">
                     <label for="unit-select" class="w-100">Unit</label>
                     <select class="form-control w-100" id="unit-select">
+                        <!-- default -->
+                        <option value="-" selected>-</option>
+
                         <!-- Physical -->
                         <option value="W">W</option>
                         <option value="kW">kW</option>
@@ -163,6 +166,7 @@
             <div class="buttons-group" style="margin-top: 30px; display: flex; gap: 10px;">
                 <button id="create-register-button" type="button" class="btn btn-success btn-lg"><i class="fa-solid fa-upload"></i></button>
                 <button id="delete-register-button" type="button" class="btn btn-danger btn-lg"><i class="fas fa-trash"></i></button>
+                <button id="clear-register-container" type="button" class="btn btn-dark btn-lg"><i class="fa-solid fa-broom"></i></button>
                 <button id="search-button" type="button" class="btn btn-dark">SUBMIT</button>
             </div>
         </form>
