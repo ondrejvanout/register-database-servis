@@ -27,7 +27,8 @@ const API_URL = {
     BY_LABEL: (label) => `http://localhost:8081/api/v1/registers/label/${label}`,
     BY_ADDRESS: (address) => `http://localhost:8081/api/v1/registers/address/${address}`,
     BY_DATA_TYPE: (dataType) => `http://localhost:8081/api/v1/registers/data-type/${dataType}`,
-    BY_FACTOR: (factor) => `http://localhost:8081/api/v1/registers/factor/${factor}`
+    BY_FACTOR: (factor) => `http://localhost:8081/api/v1/registers/factor/${factor}`,
+    BY_UNIT: (unit) => `http://localhost:8081/api/v1/registers/unit/${unit}`
 };
 
 
@@ -376,6 +377,11 @@ if (searchButton) {
             const factor = factorForm.value;
 
             const apiData = await fetchApiData(API_URL.BY_FACTOR(factor));
+            registerList = apiData.map(register => RegisterRecord.fromJson(register));
+        } else if (unitSelect.value !== '-') { // UNIT
+            const unit = unitSelect.value;
+
+            const apiData = await fetchApiData(API_URL.BY_UNIT(unit));
             registerList = apiData.map(register => RegisterRecord.fromJson(register));
         }
 
