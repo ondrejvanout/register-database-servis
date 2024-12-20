@@ -341,13 +341,7 @@ clearButton.addEventListener('click', () => {
     SEARCH button
     -> search by all attributes of register record
 
-    - searchByAddress [x] -> individual
-    - searchByLabel [x] -> individual
-    - searchByDataType [x] -> array
-    - searchByFactor [x] -> array
-    - searchByUnit [] -> array
-    
-    // TODO: only those which return object
+    // TODO: doesn't support search by more attributes
  */
 if (searchButton) {
     searchButton.addEventListener('click', async () => {
