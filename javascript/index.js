@@ -1,15 +1,13 @@
 import {RegisterRecord} from "./register.js";
 
 // Buttons
-const fetchButton = document.getElementById('fetchButton');
 const createRegButton = document.getElementById('create-register-button');
-const resultDiv = document.getElementById('result');
-const userInput = document.getElementById('register_variable');
 const deleteRegButton = document.getElementById('delete-register-button');
-const searchButton = document.getElementById('search-button');
 const clearButton = document.getElementById('clear-register-container');
+const searchButton = document.getElementById('search-button');
+const getAllButton = document.getElementById('get-all-registers-button');
 
-// Register form
+// Register detail form
 const addressForm = document.getElementById('address-form');
 const labelForm = document.getElementById('label-form');
 const dataTypeSelect = document.getElementById('data_type-select');
@@ -17,6 +15,13 @@ const factorForm = document.getElementById('factor-form');
 const unitSelect = document.getElementById('unit-select');
 const descriptionForm = document.getElementById('description-form');
 const dataForm = document.getElementById('data-form');
+
+// Register search filters
+const addressSearch = document.getElementById('address-filter');
+const labelSearch = document.getElementById('label-filter');
+const dataTypeSearch = document.getElementById("data_type-filter");
+const factorSearch = document.getElementById('factor-filter');
+const unitSearch = document.getElementById('unit-filter');
 
 // register form array (for searching)
 const searchFormArray = [addressForm, labelForm, dataTypeSelect, factorForm, unitSelect];
@@ -176,103 +181,6 @@ function clearRegisterForm() {
     dataForm.value = "";
 }
 
-/*
-    Fetch button
-*/  
-if (fetchButton) {
-    // Event listener needs to be async because we call async fetchAllRegisters()
-    fetchButton.addEventListener('click', async () => {
-        // get selected API operation
-        const selectedOperation = document.getElementById("api-operations").value;
-        console.log(selectedOperation);
-
-        let register = null;
-        let registerList = null;
-
-        // call selected API operation and get data
-        switch (selectedOperation) {
-            case "saveRegister": {
-                console.log("saveRegister not defined");
-                break;
-            }
-            case "saveRegisters": {
-                console.log("saveRegisters not defined");
-                break;
-            }
-            case "getRegisters": {
-                const apiData = await fetchApiData(API_URL.ALL);
-                // JSON array so we have to convert to individual RegisterRecord objects
-                registerList = apiData.map(register => RegisterRecord.fromJson(register));
-
-                break;
-            }
-            case "getRegisterById": {
-                let id = userInput.value;
-                if (isNaN(id)) {
-                    console.error("Given ID is not a number");
-                }
-                
-                console.log(API_URL.BY_ID(id));
-                const apiData = await fetchApiData(API_URL.BY_ID(id));
-                register = RegisterRecord.fromJson(apiData);
-
-                break;
-            }
-            case "getRegisterByLabel": {
-                let label = userInput.value
-                if (!isNaN(label)) {
-                    console.error("Given LABEL is not a text");
-                }
-
-                console.log(API_URL.BY_LABEL(label));
-                const apiData = await fetchApiData(API_URL.BY_LABEL(label));
-                console.log(apiData);
-                register = RegisterRecord.fromJson(apiData)
-
-                break;
-            }  
-            case "getRegisterByAddress": {
-                let address = userInput.value;
-                if (isNaN(address)) {
-                    console.error("Given ADDRESS is not a number");
-                }
-
-                console.log(API_URL.BY_ADDRESS(address));
-                const apiData = await fetchApiData(API_URL.BY_ADDRESS(address));
-                console.log(apiData);
-                register = RegisterRecord.fromJson(apiData);
-
-                break;
-            }
-            case "updateRegister": {
-                console.log("updateRegister not defined");
-
-                break;
-            }
-            case "deleteRegister": {
-                console.log("deleteRegister not defined");
-
-                break;
-            }
-            default:
-                console.error("No option selected");
-        }
-
-        // determine if we have list or single RegisterRecord object
-        if (registerList) { // list of registers
-            addRegistersToTable(registerList);
-        } else if (register) { // single register
-            addRegisterToTable(register);
-            addRegisterToForm(register);
-        } else {
-            console.error("SOMETHING WENT TO SHIT WHEN FETCHING DATA");
-        }
-
-       
-    });
-} else {
-    console.error('Fetch button not found');
-}
 
 /*
     SUBMIT button
@@ -349,31 +257,31 @@ if (searchButton) {
         let registerList = null;
 
         // check what we search for
-        if (addressForm.value) { // ADDRESS
-            const address = addressForm.value.trim();
+        if (addressSearch.value) { // ADDRESS
+            const address = addressSearch.value.trim();
 
             const apiData = await fetchApiData(API_URL.BY_ADDRESS(address));
             register = RegisterRecord.fromJson(apiData);
         }
-        else if (labelForm.value) { // LABEL
-            const label = labelForm.value
+        else if (labelSearch.value) { // LABEL
+            const label = labelSearch.value
 
             const apiData = await fetchApiData(API_URL.BY_LABEL(label));
             register = RegisterRecord.fromJson(apiData)
         }
-        else if (dataTypeSelect.value !== '-') { // DATA TYPE -> data-type select has been changed if it is not '-'
-            const dataType = dataTypeSelect.value;
+        else if (dataTypeSearch.value !== '-') { // DATA TYPE -> data-type select has been changed if it is not '-'
+            const dataType = dataTypeSearch.value;
 
             const apiData = await fetchApiData(API_URL.BY_DATA_TYPE(dataType));
             registerList = apiData.map(register => RegisterRecord.fromJson(register));
         }
-        else if (factorForm.value) { // FACTOR
-            const factor = factorForm.value;
+        else if (factorSearch.value) { // FACTOR
+            const factor = factorSearch.value;
 
             const apiData = await fetchApiData(API_URL.BY_FACTOR(factor));
             registerList = apiData.map(register => RegisterRecord.fromJson(register));
-        } else if (unitSelect.value !== '-') { // UNIT
-            const unit = unitSelect.value;
+        } else if (unitSearch.value !== '-') { // UNIT
+            const unit = unitSearch.value;
 
             const apiData = await fetchApiData(API_URL.BY_UNIT(unit));
             registerList = apiData.map(register => RegisterRecord.fromJson(register));
@@ -392,12 +300,23 @@ if (searchButton) {
         } else {
             console.error("SOMETHING WENT TO SHIT WHEN FETCHING DATA");
         }
-
-
-
     });
-
-
-
 }
+
+/*
+    GET ALL REGISTERS button
+
+    -> populate table with all registers
+    TODO: Now only for sofar table in database
+ */
+if (getAllButton) {
+    getAllButton.addEventListener('click', async () => {
+        const apiData = await fetchApiData(API_URL.ALL);
+        const allRegisters = apiData.map(register => RegisterRecord.fromJson(register));
+
+        addRegistersToTable(allRegisters);
+    });
+}
+
+
 

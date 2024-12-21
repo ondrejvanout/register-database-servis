@@ -1,12 +1,55 @@
-.container {
-    margin-top: 1.5%;
-    margin-bottom: 2%;
+label {
+    display: block; /* Makes label take up full width */
+    text-align: center; /* Center-align the label text */
+    font-weight: bold; /* Bold text for emphasis */
+    color: #495057; /* Neutral dark gray for text */
+    background-color: rgba(233, 236, 239, 0.92); /* Light gray background */
+    padding: 8px 0; /* Add vertical padding to the label */
+    margin-bottom: 0; /* Space between label and input */
+    border-radius: 5px; /* Smooth corners for the label */
+    border: 1px solid #ced4da; /* Subtle border for separation */
 }
 
+/* Input Fields */
+input.form-control,
+textarea.form-control,
+select.form-control {
+    background-color: #f8f9fa; /* Light gray for input background */
+    border: 1px solid #ced4da; /* Subtle border */
+    border-radius: 4px; /* Rounded edges */
+    padding: 10px; /* Add padding for better usability */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth focus effect */
+    margin-top: 0;
+}
+
+/* Focus Effect for Inputs */
+input.form-control:focus,
+textarea.form-control:focus,
+select.form-control:focus {
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle blue glow */
+}
+
+/* Floating label adjustments */
+.form-floating > label {
+    font-size: 0.875rem; /* Slightly smaller text for labels */
+    color: #6c757d; /* Neutral gray color */
+    padding: 0 0.5rem; /* Adjust padding for alignment */
+}
+
+.form-floating > input:focus + label,
+.form-floating > select:focus + label {
+    color: #007bff; /* Blue label on focus */
+    font-size: 0.85rem; /* Slightly smaller label size when focused */
+}
+
+.form-floating label {
+    background: transparent;
+}
+
+/* Table */
 .table-container {
-    width: 70%;
-    margin: 0 auto;
-    max-height: 600px;
+    max-height: 800px;
     overflow-y: auto;
 }
 
@@ -20,82 +63,4 @@ th {
     text-align: center;
 }
 
-.form-container {
-    display: flex;
-    flex-wrap: wrap; /* Allow items to wrap when needed */
-    gap: 0;          /* Ensure no gaps between items */
-    margin: 0;
-    padding: 0;
-}
 
-form .form-group {
-    display: flex;
-    flex-direction: column; /* Arrange label and input vertically */
-    align-items: flex-start; /* Align items to the left */
-    margin: 0;
-    padding: 0;
-}
-
-form .form-control, .form-select {
-    width: 100%; /* Stretch to fill parent column */
-    height: 38px; /* Standardized height */
-    margin: 0; /* Remove extra margins */
-    padding: 5px;
-    box-sizing: border-box; /* Ensures padding doesn’t affect width */
-    border-radius: 0; /* Removes rounded corners */
-}
-
-
-
-.form-control:focus {
-    outline: none;                /* Removes focus outline */
-    border-color: #888;           /* Slightly darker border on focus */
-}
-
-
-
-.form-group label {
-    display: block;            /* Ensures labels take up full width */
-    width: 100%;               /* Stretches label to match parent column */
-    margin: 0;
-    background-color: #000000; /* Background color for the label */
-    padding: 10px;             /* Adds padding for spacing inside the label */
-    color: rgba(18, 18, 19, 0.68);               /* Text color */
-    text-align: center;
-    line-height: 1.5;          /* Aligns text vertically, tweak as needed */
-    font-size: 1rem;           /* Optional: Adjusts text size */
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-/* LABEL COLOURS */
-label[for="address-form"] {
-    background-color: #c8deb6;
-}
-
-label[for="label-form"] {
-    background-color: #b0ddf0;
-}
-
-label[for="data_type-select"] {
-    background-color: #d3d2e7;
-}
-
-label[for="factor-form"] {
-    background-color: #dedbc5;
-}
-
-label[for="unit-select"] {
-    background-color: #ece1c2;
-}
-
-label[for="description-form"] {
-    background-color: #e2edd8;
-}
-
-label[for="data-form"] {
-    background-color: #e7e6f2;
-}
-
-.form-group input {
-    width: 150px; /* Set a consistent width for inputs */
-}

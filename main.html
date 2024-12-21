@@ -15,181 +15,306 @@
     <!--Boostrap libraries-->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Add Bootstrap's JavaScript bundle -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <script src="./javascript/index.js" type="module"></script>
 
 </head>
 <body>
-    <!-- Control center -->
-    <div class="container">
-        <div class="row mb-3">
-            <!-- The select box takes up 4 out of 12 columns -->
-            <div class="col-md-4">
-                <select id="api-operations" class="form-control">
-                    <!-- CREATE -->
-                    <option value="saveRegister">CREATE register</option>
-                    <option value="saveRegisters">CREATE registers</option>
-        
-                    <!-- READ -->
-                    <option value="getRegisters">GET all registers</option>
-                    <option value="getRegisterById">GET register by ID</option>
-                    <option value="getRegisterByLabel">GET register by label</option>
-                    <option value="getRegisterByAddress">GET register by address</option>
-        
-                    <!-- UPDATE -->
-                    <option value="updateRegister">UPDATE register</option>
-                    
-                    <!-- DELETE -->
-                    <option value="deleteRegister">DELETE register</option>
-                </select>
-            </div>
-    
-            <!-- The input field takes up another 4 out of 12 columns -->
-            <div class="col-md-4">
-                <input type="text" id="register_variable" class="form-control" placeholder="Register Variable">
-            </div>
-    
-            <!-- The button takes up another 4 out of 12 columns -->
-            <div class="col-md-4">
-                <button id="fetchButton" class="btn btn-success w-100">Get Data</button>
+<!-- Header -->
+<div class="navbar bg-dark text-white p-2">
+    <h1 class="navbar-brand text-white">Register Master</h1>
+</div>
+
+<!-- Page body -->
+<div class="container-fluid mt-4">
+    <div class="row">
+
+        <!-- Register detail panel -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Register details</h4>
+                </div>
+                <div class="card-body">
+                    <div class="container mt-3">
+                        <form class="form-horizontal">
+                            <!-- First row: Address and Label -->
+                            <div class="row g-3">
+                                <!-- Address Field -->
+                                <div class="col-md-6">
+                                    <label for="address-form" class="mb-0 w-100">Address</label>
+                                    <input type="text" class="form-control w-100" id="address-form" placeholder="Enter Address">
+                                </div>
+
+                                <!-- Label Field -->
+                                <div class="col-md-6">
+                                    <label for="label-form" class="mb-0 w-100">Label</label>
+                                    <input type="text" class="form-control w-100" id="label-form" placeholder="Enter Label">
+                                </div>
+                            </div>
+
+                            <!-- Second row: Data type, Factor and Unit -->
+                            <div class="row g-3 mt-4">
+                                <!-- Data Type Field -->
+                                <div class="col-md-4">
+                                    <label for="data_type-select" class="mb-0 w-100">Data Type</label>
+                                    <select class="form-control w-100" id="data_type-select">
+                                        <!-- default -->
+                                        <option value="-" selected>-</option>
+                                        <!-- Unsigned integers -->
+                                        <option value="U8">U8</option>
+                                        <option value="U16">U16</option>
+                                        <option value="U32">U32</option>
+                                        <option value="U64">U64</option>
+                                        <!-- Signed integers -->
+                                        <option value="I8">I8</option>
+                                        <option value="I16">I16</option>
+                                        <option value="I32">I32</option>
+                                        <option value="I64">I64</option>
+                                        <!-- Others -->
+                                        <option value="BCD16">BCD16</option>
+                                        <option value="ASCII">ASCII</option>
+                                        <option value="EMPTY">EMPTY</option>
+                                    </select>
+                                </div>
+
+                                <!-- Factor Field -->
+                                <div class="col-md-4">
+                                    <label for="factor-form" class="mb-0 w-100">Factor</label>
+                                    <input type="text" class="form-control w-100" id="factor-form" placeholder="Enter Factor">
+                                </div>
+
+                                <!-- Unit Field -->
+                                <div class="col-md-4">
+                                    <label for="unit-select" class="mb-0 w-100">Unit</label>
+                                    <select class="form-control w-100" id="unit-select">
+                                        <!-- default -->
+                                        <option value="-" selected>-</option>
+
+                                        <!-- Physical -->
+                                        <option value="W">W</option>
+                                        <option value="kW">kW</option>
+                                        <option value="kΩ">kΩ</option>
+                                        <option value="Hz">Hz</option>
+                                        <option value="V">V</option>
+                                        <option value="mV">mV</option>
+                                        <option value="A">A</option>
+                                        <option value="mA">mA</option>
+                                        <option value="kVA">kVA</option>
+                                        <option value="kWh">kWh</option>
+
+                                        <!-- Time -->
+                                        <option value="hour">hour</option>
+                                        <option value="minute">minute</option>
+                                        <option value="seconds">seconds</option>
+
+                                        <!-- Others: -->
+                                        <option value="EMPTY">EMPTY</option>
+                                        <option value="℃">℃</option>
+                                        <option value="%">%</option>
+                                        <option value="cycle">cycle</option>
+                                        <option value="p.u.">p.u.</option>
+                                        <option value="Second">Second</option>
+                                        <option value="%Pn/min">%Pn/min</option>
+                                        <option value="ms">ms</option>
+                                        <option value="%Pn/Hz">%Pn/Hz</option>
+                                        <option value="%Pn">%Pn</option>
+                                        <option value="%Qmax">%Qmax</option>
+                                        <option value="mA/kVA">mA/kVA</option>
+                                        <option value="Year">Year</option>
+                                        <option value="Month">Month</option>
+                                        <option value="date">date</option>
+                                        <option value="Ah">Ah</option>
+                                        <option value="mV/Cell">mV/Cell</option>
+                                        <option value="kVar">kVar</option>
+                                        <option value="Hour Minute">Hour Minute</option>
+                                        <option value="Month Date">Month Date</option>
+                                        <option value="times">times</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Third row: Description -->
+                            <div class="row g-3 mt-4">
+                                <!-- Description Field -->
+                                <div class="col-md-12">
+                                    <label for="description-form" class="mb-0 w-100">Description</label>
+                                    <textarea class="form-control" id="description-form" placeholder="Enter Description" rows="4"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Fourth Row: Data Field -->
+                            <div class="row g-3 mt-4">
+                                <!-- Data Field -->
+                                <div class="col-md-6">
+                                    <label for="data-form" class="mb-0 w-100">Data</label>
+                                    <input type="text" class="form-control w-100" id="data-form" placeholder="Enter Data">
+                                </div>
+                            </div>
+
+                            <!-- Button row -->
+                            <div class="row g-3 mt-5">
+                                <div class="col-md-4">
+                                    <button id="create-register-button" type="button" class="btn btn-success btn-lg w-100"><i class="fa-solid fa-upload"></i> Save</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button id="delete-register-button" type="button" class="btn btn-danger btn-lg w-100"><i class="fas fa-trash"></i> Delete</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button id="clear-register-container" type="button" class="btn btn-dark btn-lg w-100"><i class="fa-solid fa-broom"></i> Clear</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-       
-    <!-- Individual register container -->
-    <div class="container">
-        <form class="form-horizontal" role="form">
-            <div class="form-container row g-0">
-                <!-- Address Field -->
-                <div class="form-group col-sm-2">
-                    <label for="address-form" class="w-100">Address</label>
-                    <input type="text" class="form-control w-100" id="address-form" placeholder="Enter Address">
+
+        <!-- Right panel -->
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Registers overview</h4>
                 </div>
-                <!-- Label Field -->
-                <div class="form-group col-sm-4">
-                    <label for="label-form" class="w-100">Label</label>
-                    <input type="text" class="form-control w-100" id="label-form" placeholder="Enter Label">
-                </div>
-                <!-- Data Type Field -->
-                <div class="form-group col-sm-2">
-                    <label for="data_type-select" class="w-100">Data Type</label>
-                    <select class="form-control w-100" id="data_type-select">
-                        <!-- default -->
-                        <option value="-" selected>-</option>
-                        <!-- Unsigned integers -->
-                        <option value="U8">U8</option>
-                        <option value="U16">U16</option>
-                        <option value="U32">U32</option>
-                        <option value="U64">U64</option>
-                        <!-- Signed integers -->
-                        <option value="I8">I8</option>
-                        <option value="I16">I16</option>
-                        <option value="I32">I32</option>
-                        <option value="I64">I64</option>
-                        <!-- Others -->
-                        <option value="BCD16">BCD16</option>
-                        <option value="ASCII">ASCII</option>
-                        <option value="EMPTY">EMPTY</option>
-                    </select>
-                </div>
-                <!-- Factor Field -->
-                <div class="form-group col-sm-2">
-                    <label for="factor-form" class="w-100">Factor</label>
-                    <input type="text" class="form-control w-100" id="factor-form" placeholder="Enter Factor">
-                </div>
-                <!-- Unit Field -->
-                <div class="form-group col-sm-2">
-                    <label for="unit-select" class="w-100">Unit</label>
-                    <select class="form-control w-100" id="unit-select">
-                        <!-- default -->
-                        <option value="-" selected>-</option>
+                <div class="card-body table-container">
+                    <!-- Filters -->
+                    <div class="row g-3 mt-2">
+                        <!-- Address filter -->
+                        <div class="col-md-2">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="address-filter" placeholder="Address">
+                                <label for="address-filter">Address</label>
+                            </div>
+                        </div>
 
-                        <!-- Physical -->
-                        <option value="W">W</option>
-                        <option value="kW">kW</option>
-                        <option value="kΩ">kΩ</option>
-                        <option value="Hz">Hz</option>
-                        <option value="V">V</option>
-                        <option value="mV">mV</option>
-                        <option value="A">A</option>
-                        <option value="mA">mA</option>
-                        <option value="kVA">kVA</option>
-                        <option value="kWh">kWh</option>
+                        <!-- Label filter -->
+                        <div class="col-md-2">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="label-filter" placeholder="Label">
+                                <label for="label-filter">Label</label>
+                            </div>
+                        </div>
 
-                        <!-- Time -->
-                        <option value="hour">hour</option>
-                        <option value="minute">minute</option>
-                        <option value="seconds">seconds</option>
+                        <!-- Data type filter -->
+                        <div class="col-md-2">
+                            <div class="form-floating">
+                                <select class="form-select" id="data_type-filter">
+                                    <!-- default -->
+                                    <option value="-" selected>-</option>
+                                    <!-- Unsigned integers -->
+                                    <option value="U8">U8</option>
+                                    <option value="U16">U16</option>
+                                    <option value="U32">U32</option>
+                                    <option value="U64">U64</option>
+                                    <!-- Signed integers -->
+                                    <option value="I8">I8</option>
+                                    <option value="I16">I16</option>
+                                    <option value="I32">I32</option>
+                                    <option value="I64">I64</option>
+                                    <!-- Others -->
+                                    <option value="BCD16">BCD16</option>
+                                    <option value="ASCII">ASCII</option>
+                                    <option value="EMPTY">EMPTY</option>
+                                </select>
+                                <label for="data_type-filter">Data Type</label>
+                            </div>
 
-                        <!-- Others: -->
-                        <option value="EMPTY">EMPTY</option>
-                        <option value="℃">℃</option>
-                        <option value="%">%</option>
-                        <option value="cycle">cycle</option>
-                        <option value="p.u.">p.u.</option>
-                        <option value="Second">Second</option>
-                        <option value="%Pn/min">%Pn/min</option>
-                        <option value="ms">ms</option>
-                        <option value="%Pn/Hz">%Pn/Hz</option>
-                        <option value="%Pn">%Pn</option>
-                        <option value="%Qmax">%Qmax</option>
-                        <option value="mA/kVA">mA/kVA</option>
-                        <option value="Year">Year</option>
-                        <option value="Month">Month</option>
-                        <option value="date">date</option>
-                        <option value="Ah">Ah</option>
-                        <option value="mV/Cell">mV/Cell</option>
-                        <option value="kVar">kVar</option>
-                        <option value="Hour Minute">Hour Minute</option>
-                        <option value="Month Date">Month Date</option>
-                        <option value="times">times</option>
-                    </select>
+                        </div>
 
+                        <!-- Factor filter -->
+                        <div class="col-md-2">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="factor-filter" placeholder="Factor">
+                                <label for="factor-filter">Factor</label>
+                            </div>
+                        </div>
 
+                        <!-- Unit filter -->
+                        <div class="col-md-2">
+                            <div class="form-floating">
+                                <select class="form-select" id="unit-filter">
+                                    <!-- default -->
+                                    <option value="-" selected>-</option>
+
+                                    <!-- Physical -->
+                                    <option value="W">W</option>
+                                    <option value="kW">kW</option>
+                                    <option value="kΩ">kΩ</option>
+                                    <option value="Hz">Hz</option>
+                                    <option value="V">V</option>
+                                    <option value="mV">mV</option>
+                                    <option value="A">A</option>
+                                    <option value="mA">mA</option>
+                                    <option value="kVA">kVA</option>
+                                    <option value="kWh">kWh</option>
+
+                                    <!-- Time -->
+                                    <option value="hour">hour</option>
+                                    <option value="minute">minute</option>
+                                    <option value="seconds">seconds</option>
+
+                                    <!-- Others: -->
+                                    <option value="EMPTY">EMPTY</option>
+                                    <option value="℃">℃</option>
+                                    <option value="%">%</option>
+                                    <option value="cycle">cycle</option>
+                                    <option value="p.u.">p.u.</option>
+                                    <option value="Second">Second</option>
+                                    <option value="%Pn/min">%Pn/min</option>
+                                    <option value="ms">ms</option>
+                                    <option value="%Pn/Hz">%Pn/Hz</option>
+                                    <option value="%Pn">%Pn</option>
+                                    <option value="%Qmax">%Qmax</option>
+                                    <option value="mA/kVA">mA/kVA</option>
+                                    <option value="Year">Year</option>
+                                    <option value="Month">Month</option>
+                                    <option value="date">date</option>
+                                    <option value="Ah">Ah</option>
+                                    <option value="mV/Cell">mV/Cell</option>
+                                    <option value="kVar">kVar</option>
+                                    <option value="Hour Minute">Hour Minute</option>
+                                    <option value="Month Date">Month Date</option>
+                                    <option value="times">times</option>
+                                </select>
+                                <label for="unit-filter">Unit</label>
+                            </div>
+                        </div>
+
+                        <!-- Filter button -->
+                        <div class="col-md-2">
+                            <button id="search-button" type="button" class="btn btn-dark w-100 h-100">SUBMIT</button>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <table class="table table-bordered table-striped mt-4">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th class="text-center">Address</th>
+                            <th class="text-center">Label</th>
+                            <th class="text-center">Data type</th>
+                            <th class="text-center">Factor</th>
+                            <th class="text-center">Unit</th>
+                            <th class="text-center">Data</th>
+                        </tr>
+                        </thead>
+                        <tbody id="register_output">
+                        <!-- Data rows will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+
+                    <!-- Get all registers button -->
+                    <button id="get-all-registers-button" type="button" class="btn btn-primary rounded-circle position-absolute"
+                            style="bottom: 20px; right: 20px; z-index: 1050; width: 50px; height: 50px;">
+                        <i class="fa-solid fa-database"></i>
+                    </button>
                 </div>
             </div>
+        </div>
 
-            <div class="form-container row g-0">
-                <!-- Description Field -->
-                <div class="form-group col-sm-10">
-                    <label for="description-form" class="w-100">Description</label>
-                    <input type="text" class="form-control w-100" id="description-form" placeholder="Enter Description">
-                </div>
-                <!-- Data Field -->
-                <div class="form-group col-sm-2">
-                    <label for="data-form" class="w-100">Data</label>
-                    <input type="text" class="form-control w-100" id="data-form" placeholder="Enter Data">
-                </div>
-            </div>
-            <!-- Submit and Delete Button -->
-            <div class="buttons-group" style="margin-top: 30px; display: flex; gap: 10px;">
-                <button id="create-register-button" type="button" class="btn btn-success btn-lg"><i class="fa-solid fa-upload"></i></button>
-                <button id="delete-register-button" type="button" class="btn btn-danger btn-lg"><i class="fas fa-trash"></i></button>
-                <button id="clear-register-container" type="button" class="btn btn-dark btn-lg"><i class="fa-solid fa-broom"></i></button>
-                <button id="search-button" type="button" class="btn btn-dark">SUBMIT</button>
-            </div>
-        </form>
     </div>
-
-    <!-- Table of fetched register data - initially empty -->
-    <div class="table-container">
-        <table class="table table-bordered table-striped">
-            <thead class="thead-dark">
-            <tr>
-                <th class="text-center">Address</th>
-                <th class="text-center">Label</th>
-                <th class="text-center">Data type</th>
-                <th class="text-center">Factor</th>
-                <th class="text-center">Unit</th>
-                <th class="text-center">Data</th>
-            </tr>
-            </thead>
-            <tbody id="register_output">
-            <!-- Data rows will be dynamically inserted here -->
-            </tbody>
-        </table>
-    </div>
-
+</div>
 </body>
 </html>
