@@ -47,6 +47,13 @@ select.form-control:focus {
     background: transparent;
 }
 
+/* Filter row */
+.filter-row {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
 /* Table */
 .table-container {
     max-height: 800px;
@@ -58,6 +65,8 @@ thead.thead-dark {
     top: 0;
     z-index: 2; /* Keeps the header above the scrolling content */
 }
+
+
 
 th {
     text-align: center;

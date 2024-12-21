@@ -178,9 +178,9 @@
                 <div class="card-header">
                     <h4>Registers overview</h4>
                 </div>
-                <div class="card-body table-container">
+                <div class="card-body">
                     <!-- Filters -->
-                    <div class="row g-3 mt-2">
+                    <div class="row g-3 mt-2 mb-3 filter-row">
                         <!-- Address filter -->
                         <div class="col-md-2">
                             <div class="form-floating">
@@ -289,27 +289,29 @@
                     </div>
 
                     <!-- Table -->
-                    <table class="table table-bordered table-striped mt-4">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th class="text-center">Address</th>
-                            <th class="text-center">Label</th>
-                            <th class="text-center">Data type</th>
-                            <th class="text-center">Factor</th>
-                            <th class="text-center">Unit</th>
-                            <th class="text-center">Data</th>
-                        </tr>
-                        </thead>
-                        <tbody id="register_output">
-                        <!-- Data rows will be dynamically inserted here -->
-                        </tbody>
-                    </table>
+                    <div class="table-container">
+                        <table class="table table-bordered table-striped mt-4">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th class="text-center">Address</th>
+                                <th class="text-center">Label</th>
+                                <th class="text-center">Data type</th>
+                                <th class="text-center">Factor</th>
+                                <th class="text-center">Unit</th>
+                                <th class="text-center">Data</th>
+                            </tr>
+                            </thead>
+                            <tbody id="register_output">
+                            <!-- Data rows will be dynamically inserted here -->
+                            </tbody>
+                        </table>
 
-                    <!-- Get all registers button -->
-                    <button id="get-all-registers-button" type="button" class="btn btn-primary rounded-circle position-absolute"
-                            style="bottom: 20px; right: 20px; z-index: 1050; width: 50px; height: 50px;">
-                        <i class="fa-solid fa-database"></i>
-                    </button>
+                        <!-- Get all registers button -->
+                        <button id="get-all-registers-button" type="button" class="btn btn-primary rounded-circle position-absolute"
+                                style="bottom: 20px; right: 20px; z-index: 1050; width: 50px; height: 50px;">
+                            <i class="fa-solid fa-database"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
