@@ -23,8 +23,8 @@ const dataTypeSearch = document.getElementById("data_type-filter");
 const factorSearch = document.getElementById('factor-filter');
 const unitSearch = document.getElementById('unit-filter');
 
-// register form array (for searching)
-const searchFormArray = [addressForm, labelForm, dataTypeSelect, factorForm, unitSelect];
+// Table
+const registerTable = document.getElementById('register-table');
 
 const API_URL = {
     ALL: "http://localhost:8081/api/v1/registers",
@@ -181,6 +181,24 @@ function clearRegisterForm() {
     dataForm.value = "";
 }
 
+/*
+    Table listener
+    -> click on table rows
+ */
+registerTable.addEventListener('click', async function (event) {
+    // check if event is triggered by table row
+    if (event.target.closest("tr")) {
+        const clickedRow = event.target.closest("tr");
+        const address = clickedRow.children[0].innerText;
+        console.log(`Clicked: ${address}`);
+
+        // get register that has been clicked by the address (the row element doesn't have all register attributes -> need to fetch from database)
+        const registerJson = await fetchApiData(API_URL.BY_ADDRESS(address));
+        const registerClicked = RegisterRecord.fromJson(registerJson);
+        addRegisterToForm(registerClicked);
+    }
+
+});
 
 /*
     SUBMIT button
