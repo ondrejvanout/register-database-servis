@@ -111,6 +111,32 @@ async function deleteApiData(url, address) {
 }
 
 /*
+    Update register in database
+*/
+async function updateApiData(url, register) {
+    console.log("UPDATing data");
+    try {
+        let response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: register.toJson()
+        });
+
+        if (!response.ok) {
+            new Error(`Response status: ${response.status}`);
+        }
+
+
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+/*
     display list of registers in table
 */
 function addRegistersToTable(registers) {
@@ -164,7 +190,6 @@ function addRegisterToForm(register) {
     unitSelect.value = register.unit;
     descriptionForm.value = register.description;
     dataForm.value = register.data;
-    
 }
 
 /*
@@ -184,7 +209,7 @@ function clearRegisterForm() {
 /*
     Table listener
     -> click on table rows
- */
+*/
 registerTable.addEventListener('click', async function (event) {
     // check if event is triggered by table row
     if (event.target.closest("tr")) {
