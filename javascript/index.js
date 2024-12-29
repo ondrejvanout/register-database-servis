@@ -88,7 +88,7 @@ async function postApiData(url, register) {
 /*
     Delete data from database using database API
  */
-async function deleteApiData(url, address) {
+async function deleteApiData(url) {
     console.log("DELETing data");
     try {
         let response = await fetch(url, {
@@ -274,7 +274,7 @@ if (deleteRegButton) {
         const address = addressForm.value.trim();
         console.log(address);
 
-        const response = await deleteApiData(API_URL.BY_ADDRESS(address), address);
+        const response = await deleteApiData(API_URL.BY_ADDRESS(address));
         console.log(`DELETE register: ${response}`);
         clearRegisterForm();
     });
