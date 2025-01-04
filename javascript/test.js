@@ -92,10 +92,10 @@ for (let i = 0; i < 10; i++) {
 
 /*
     POST register
-*/
+
 console.log("POST");
 const deleteRegister = new RegisterRecord("38010", "bro_tf", "U16", "1", "V", "Kamo uz funguj ty debile", "420");
-/*
+
 console.log(`OBJECT:\n${deleteRegister}\n`);
 console.log(`JSON:\n${deleteRegister.toJson()}\n`);
 
@@ -106,16 +106,28 @@ console.log("FETCH");
 const fetchResponse = await fetchApiData(`http://localhost:8081/api/v1/registers/address/${deleteRegister.address}`);
 console.log(fetchResponse);*/
 
-
+/*
 console.log("DELETE");
 const resultDelete = await deleteApiData(`http://localhost:8081/api/v1/registers/address/${deleteRegister.address}`);
 console.log(resultDelete);
 
-/*
+
 const resultPost = await postApiData("http://localhost:8081/api/v1/registers", postRegister);
 console.log(resultPost);
 
 const checkPost = await fetchApiData(`http://localhost:8081/api/v1/registers/address/${postRegister.address}`);
 console.log(`From DB: ${checkPost}`);
+*/
 
- */
+const apiData = await fetchApiData('http://localhost:8081/api/v1/registers/address/1414');
+console.log(apiData);
+const register = RegisterRecord.fromJson(apiData);
+console.log(register);
+
+const withIDregister = new RegisterRecord(1, "38010", "bro_tf", "U16", "1", "V", "Kamo uz funguj ty debile", "420");
+const woIDregister = new RegisterRecord("40650", "chci_spat", "I16", "1", "V", "Chrpipipi", "10");
+console.log(withIDregister.toJson());
+console.log(woIDregister.toJson());
+
+const testRegister = new RegisterRecord("38008", "Enervio", "I16", "1", "mV", "Lake city quiet pills. Old dutch milo", "2.6");
+console.log(testRegister.toJson());

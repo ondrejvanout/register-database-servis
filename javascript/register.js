@@ -1,6 +1,7 @@
 export class RegisterRecord {
     // removed record id attribute -> dont know if its needed
-    constructor(address, label, dataType, factor, unit, description, data) {
+    constructor(address, label, dataType, factor, unit, description, data, id = null) {
+        this.id = id;
         this.address = address;
         this.label = label;
         this.dataType = dataType;
@@ -14,7 +15,16 @@ export class RegisterRecord {
         Serialize the RegisterRecord object to JSON
     */
     toJson() {
-        return JSON.stringify(this);
+        if (this.id !== null)
+            return JSON.stringify(this);
+
+
+        return JSON.stringify(this, (key, value) => {
+            if (key === "id")
+                return undefined;
+
+            return value;
+        });
     }
 
     /*
@@ -34,7 +44,8 @@ export class RegisterRecord {
             jsonData.factor,
             jsonData.unit,
             jsonData.description,
-            jsonData.data
+            jsonData.data,
+            jsonData.id
         );
    }
 
