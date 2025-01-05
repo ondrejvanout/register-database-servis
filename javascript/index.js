@@ -245,9 +245,10 @@ if (createRegButton) {
         const factor = factorForm.value.trim();
         const unit = unitSelect.value;
         const description = descriptionForm.value.trim();
+        const data = dataForm.value.trim();
 
         // create RegisterRecord instance with values from individual register container
-        const record = new RegisterRecord(address, label, dataType, factor, unit, description);
+        const record = new RegisterRecord(address, label, dataType, factor, unit, description, data);
         
         const response = await postApiData(API_URL.ALL, record);
         console.log(`POST register: ${response}`);
