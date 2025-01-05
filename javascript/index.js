@@ -220,6 +220,7 @@ registerTable.addEventListener('click', async function (event) {
         // get register that has been clicked by the address (the row element doesn't have all register attributes -> need to fetch from database)
         const registerJson = await fetchApiData(API_URL.BY_ADDRESS(address));
         const registerClicked = RegisterRecord.fromJson(registerJson);
+
         addRegisterToForm(registerClicked);
     }
 
@@ -340,7 +341,6 @@ if (searchButton) {
             addRegistersToTable(registerList);
         } else if (register) { // single register
             addRegisterToTable(register);
-            addRegisterToForm(register);
         } else {
             console.error("SOMETHING WENT TO SHIT WHEN FETCHING DATA");
         }
