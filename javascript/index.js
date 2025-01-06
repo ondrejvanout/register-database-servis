@@ -36,6 +36,8 @@ const API_URL = {
     BY_UNIT: (unit) => `http://localhost:8081/api/v1/registers/unit/${unit}`
 };
 
+// RUNTIME
+var registerInDetailPanel = null;
 
 /*
     fetch data from database API 
@@ -180,9 +182,10 @@ function addRegisterToTable(register) {
 }
 
 /*
-    display single register in form
+    display single register in detail panel
 */
-function addRegisterToForm(register) {
+function addRegisterToDetailPanel(register) {
+    registerInDetailPanel = register;
     addressForm.value = register.address;
     labelForm.value = register.label;
     dataTypeSelect.value = register.dataType;
@@ -190,13 +193,15 @@ function addRegisterToForm(register) {
     unitSelect.value = register.unit;
     descriptionForm.value = register.description;
     dataForm.value = register.data;
+
+    console.log(`Register in detail panel ${registerInDetailPanel.toJson()}`);
 }
 
 /*
     Reset all form fields
     using after creating register
 */
-function clearRegisterForm() {
+function clearDetailPanel() {
     addressForm.value = "";
     labelForm.value = "";
     dataTypeSelect.value = "-";
@@ -204,6 +209,8 @@ function clearRegisterForm() {
     unitSelect.value = "-";
     descriptionForm.value = "";
     dataForm.value = "";
+
+    registerInDetailPanel = null;
 }
 
 /*
@@ -220,8 +227,9 @@ registerTable.addEventListener('click', async function (event) {
         // get register that has been clicked by the address (the row element doesn't have all register attributes -> need to fetch from database)
         const registerJson = await fetchApiData(API_URL.BY_ADDRESS(address));
         const registerClicked = RegisterRecord.fromJson(registerJson);
+        console.log(registerClicked);
 
-        addRegisterToForm(registerClicked);
+        addRegisterToDetailPanel(registerClicked);
     }
 
 });
@@ -233,7 +241,6 @@ registerTable.addEventListener('click', async function (event) {
 */
 if (createRegButton) {
     createRegButton.addEventListener('click', async () => {
-        console.log("clicked");
         // Need to check that all required attributes exists
         if (addressForm.value.trim() === "" || labelForm.value.trim() === "") {
             alert("Register address or label can't be empty!");
@@ -248,13 +255,22 @@ if (createRegButton) {
         const description = descriptionForm.value.trim();
         const data = dataForm.value.trim();
 
-        // create RegisterRecord instance with values from individual register container
-        const record = new RegisterRecord(address, label, dataType, factor, unit, description, data);
-        
-        const response = await postApiData(API_URL.ALL, record);
-        console.log(`POST register: ${response}`);
-        clearRegisterForm();
+        // choose if create new register or update
+        if (registerInDetailPanel) { // UPDATE register
+            // need to include id
+            const id = registerInDetailPanel.id;
+            const record = new RegisterRecord(address, label, dataType, factor, unit, description, data, id);
+            const response = await updateApiData(API_URL.ALL, record);
+            console.log(`UPDATE register: ${response}`);
+        } else {
+            // CREATE new register
+            const record = new RegisterRecord(address, label, dataType, factor, unit, description, data);
+            const response = await postApiData(API_URL.ALL, record);
+            console.log(`CREATE register: ${response}`);
+        }
 
+        clearDetailPanel();
+        registerInDetailPanel = null;
     });
 }
 
@@ -278,7 +294,7 @@ if (deleteRegButton) {
 
         const response = await deleteApiData(API_URL.BY_ADDRESS(address));
         console.log(`DELETE register: ${response}`);
-        clearRegisterForm();
+        clearDetailPanel();
     });
 }
 
@@ -287,7 +303,7 @@ if (deleteRegButton) {
     -> clears register form
  */
 clearButton.addEventListener('click', () => {
-    clearRegisterForm();
+    clearDetailPanel();
 });
 
 /*
